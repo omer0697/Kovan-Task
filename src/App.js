@@ -144,6 +144,21 @@ function App() {
         countData={countData}
         loading={loading}
         handleShowMore={handleShowMore}
+        footer={() => {
+          if (handleShowMore){
+              return (
+                  <div className='flex flex-col'>
+                      <p>Total number of bikes: {countData}</p>
+                      <Button 
+                          type="dashed"
+                          onClick={handleShowMore}
+                      >
+                          Show More
+                      </Button>
+                  </div>
+              );
+          }
+      }}
       />
     </div>
   );
