@@ -111,6 +111,23 @@ function App() {
     setModelVisible(true);
   }
 
+  async function reloudData() {
+    setLoading(true);
+    try {
+      const response = await axios.get(`https://test-api-a1g.pages.dev/items?page=1`);
+      setCountData(response.data.total_count);
+      setTtl(response.data.ttl);
+      const newData = response.data.data.bikes;
+      setData(newData);
+      setTableData(newData);
+      setCurrentPage(1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="flex flex-col px-32">
       <div className='flex w-96 items-center justify-between gap-4 py-10'>
@@ -142,7 +159,7 @@ function App() {
       <Button
         className='w-44' 
         type="primary"
-        onClick={() => fetchData()}
+        onClick={() => reloudData()}
         icon={<ReloadOutlined className='pl-2'/>}
         iconPosition='left'
         loading={loading}
