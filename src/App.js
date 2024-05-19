@@ -3,6 +3,7 @@ import axios from 'axios';
 import CustomTable from './components/CustomTable';
 import { Button, Input, Modal, Select } from 'antd';
 import DialogMenu from './components/Modal';
+import { ReloadOutlined } from '@ant-design/icons';
 
 const vehicleTypes = ['bike', 'scooter'];
 
@@ -31,7 +32,7 @@ function App() {
   const fetchData = async (page = 1) => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/items?page=${page}`);
+      const response = await axios.get(`https://test-api-a1g.pages.dev/items?page=${page}`);
       setCountData(response.data.total_count);
       setTtl(response.data.ttl);
       const newData = response.data.data.bikes;
@@ -138,6 +139,16 @@ function App() {
           ))}
         </Select>
       </div>
+      <Button
+        className='w-44' 
+        type="primary"
+        onClick={() => fetchData()}
+        icon={<ReloadOutlined className='pl-2'/>}
+        iconPosition='left'
+        loading={loading}
+      >
+        Reload Data
+      </Button>
       <CustomTable 
         data={tableData}
         columns={columns} 
